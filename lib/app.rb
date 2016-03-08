@@ -71,7 +71,7 @@ class CalculatorApp
 
         puts "### #{@operands}\n### #{@operators}"
 
-      rescue CalculatorDivideByZero
+      rescue CalculatorDivideByZero => error
         puts error.message
         clear
       rescue CalculatorInvalidInputError => error
