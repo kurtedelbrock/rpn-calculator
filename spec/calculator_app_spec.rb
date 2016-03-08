@@ -15,5 +15,11 @@ describe CalculatorApp do
         expect(app.operators).to include(:*)
       end
     end
+
+    context 'with input that is not a number or an operator' do
+      it 'should raise an exception' do
+        expect{ app.add "F" }.to raise_error CalculatorInvalidInputError
+      end
+    end
   end
 end
