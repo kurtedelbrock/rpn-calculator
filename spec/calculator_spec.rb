@@ -24,4 +24,16 @@ describe Calculator do
 
     end
   end
+
+  describe '::calculate' do
+    context 'with the input (2 3 4 5 + - *)' do
+      let(:initial) { 2 }
+      let(:tail) { [3, 4, 5] }
+      let(:operators) { [:+, :-, :*] }
+
+      it 'should calculate the correct output' do
+        expect(Calculator.calculate(initial, tail, operators)).to eq(5)
+      end
+    end
+  end
 end
