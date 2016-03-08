@@ -29,4 +29,28 @@ class CalculatorApp
   def valid_input?(input)
     raise CalculatorInvalidInputError unless input =~ @operator_regex or input.is_a? Numeric
   end
+
+  def finished?
+    @operands.count != 0 && @operators.count != 0 && @operators.count == @operands.count-1
+  end
+
+  def initial
+    @operands.first
+  end
+
+  def tail
+    @operands.drop(1)
+  end
+
+  def begin
+    loop do
+      input = gets.chomp
+      add(input)
+
+      if finished?
+        output = Calculator.calculate(@operands.first, @operands.drop(1), @operators)
+        @operands = [output]
+      end
+    end
+  end
 end

@@ -22,4 +22,54 @@ describe CalculatorApp do
       end
     end
   end
+
+  describe "#finished?" do
+    context "with no operands or operators" do
+      it 'should be false' do
+        expect(app.finished?).to be(false)
+      end
+    end
+
+    context "with the same number of operands and operators" do
+      it 'should be false' do
+        app.operators = [:+, :+]
+        app.operands = [1, 2]
+        expect(app.finished?).to be(false)
+      end
+    end
+
+    context 'with 2 3 + + +' do
+      it 'should be false' do
+        app.operators = [:+, :+, :+]
+        app.operands = [2, 3]
+        expect(app.finished?).to be(false)
+      end
+    end
+
+    context 'with 2 3 4 + +' do
+      it 'should be true' do
+        app.operators = [:+, :+]
+        app.operands = [2, 3, 4]
+        expect(app.finished?).to be(true)
+      end
+    end
+  end
+
+  describe "#initial" do
+    context 'with the operands 3, 4, 5, 6' do
+      it 'should return 3' do
+        app.operands = [3, 4, 5, 6]
+        expect(app.initial).to be(3)
+      end
+    end
+  end
+
+  describe "#tail" do
+    context 'with the operands 3, 4, 5, 6' do
+      it 'should return 4, 5 and 6' do
+        app.operands = [3, 4, 5, 6]
+        expect(app.tail).to eq([4, 5, 6])
+      end
+    end
+  end
 end
