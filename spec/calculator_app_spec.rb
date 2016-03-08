@@ -101,4 +101,5 @@ describe CalculatorApp do
       expect(app.operands).to eq([])
     end
   end
+
 end

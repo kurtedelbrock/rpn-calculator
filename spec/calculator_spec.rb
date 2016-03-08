@@ -41,8 +41,8 @@ describe Calculator do
       let(:tail) { [0] }
       let(:operators) { [:/] }
 
-      it 'should raise a ZeroDivisionError exception' do
-        expect{ Calculator.calculate(initial, tail, operators) }.to raise_error(ZeroDivisionError)
+      it 'should raise a CalculatorDivideByZero exception' do
+        expect{ Calculator.calculate(initial, tail, operators) }.to raise_error(CalculatorDivideByZero)
       end
     end
   end

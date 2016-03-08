@@ -12,10 +12,11 @@ class CalculatorApp
   attr_accessor :operators
   attr_accessor :operator_regex
 
-  def initialize
+  def initialize(calculator = Calculator)
     @operands = []
     @operators = []
     @operator_regex = /[\+\-\*\/]$/
+    @calculator = calculator
   end
 
   def add(input)
@@ -62,15 +63,16 @@ class CalculatorApp
         add(input)
 
         if finished?
-          output = Calculator.calculate(initial, tail, @operators)
+          output = calculator.calculate(initial, tail, @operators)
           clear
           @operands = [output]
           puts "= #{output}"
         end
 
         puts "### #{@operands}\n### #{@operators}"
-      rescue ZeroDivisionError
-        puts "Cannot divide by zero. Clearing previous input."
+
+      rescue CalculatorDivideByZero
+        puts error.message
         clear
       rescue CalculatorInvalidInputError => error
         puts error.message

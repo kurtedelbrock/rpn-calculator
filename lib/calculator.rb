@@ -14,7 +14,7 @@ module Calculator
       self.calculate_pair(memo, pair.first, pair.last)
     end
 
-    raise ZeroDivisionError if val == Float::INFINITY
+    raise CalculatorDivideByZero if val == Float::INFINITY
     val
   end
 end
