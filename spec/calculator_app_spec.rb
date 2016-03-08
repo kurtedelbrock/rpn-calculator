@@ -1,4 +1,4 @@
-require_relative '../calculator.rb'
+require_relative '../lib/app.rb'
 
 describe CalculatorApp do
   let(:app) { CalculatorApp.new }
@@ -19,6 +19,19 @@ describe CalculatorApp do
     context 'with input that is not a number or an operator' do
       it 'should raise an exception' do
         expect{ app.add "F" }.to raise_error CalculatorInvalidInputError
+      end
+    end
+
+    context 'with a negative number' do
+      it 'should store it to the operands array' do
+        app.add "-3.423"
+        expect(app.operands).to include(-3.423)
+      end
+    end
+
+    context 'with a decimal' do
+      it 'should store it to the operands array' do
+        app.add "4.2"
       end
     end
   end
@@ -70,6 +83,22 @@ describe CalculatorApp do
         app.operands = [3, 4, 5, 6]
         expect(app.tail).to eq([4, 5, 6])
       end
+    end
+  end
+
+  describe "#clear" do
+    before :each do
+      app.operators = [:+]
+      app.operands = [3]
+      app.clear
+    end
+
+    it 'should reset the operators' do
+      expect(app.operators).to eq([])
+    end
+
+    it 'should reset the operands' do
+      expect(app.operands).to eq([])
     end
   end
 end

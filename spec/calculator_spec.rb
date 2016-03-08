@@ -35,5 +35,15 @@ describe Calculator do
         expect(Calculator.calculate(initial, tail, operators)).to eq(5)
       end
     end
+
+    context 'with input that requires dividing by zero' do
+      let(:initial) { 2 }
+      let(:tail) { [0] }
+      let(:operators) { [:/] }
+
+      it 'should raise a ZeroDivisionError exception' do
+        expect{ Calculator.calculate(initial, tail, operators) }.to raise_error(ZeroDivisionError)
+      end
+    end
   end
 end
