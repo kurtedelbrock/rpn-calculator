@@ -63,7 +63,7 @@ class CalculatorApp
         add(input)
 
         if finished?
-          output = calculator.calculate(initial, tail, @operators)
+          output = @calculator.calculate(initial, tail, @operators)
           clear
           @operands = [output]
           puts "= #{output}"
