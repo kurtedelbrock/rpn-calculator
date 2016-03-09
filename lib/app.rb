@@ -29,7 +29,7 @@ class CalculatorApp
   end
 
   def valid_input?(input)
-    raise CalculatorInvalidInputError unless input =~ @operator_regex or is_number? input
+    raise CalculatorInvalidInputError unless (input =~ @operator_regex && input.length == 1) or is_number? input
   end
 
   def finished?
