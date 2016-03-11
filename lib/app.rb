@@ -1,6 +1,14 @@
 require_relative '../lib/calculator.rb'
 require 'readline'
 
+module CoreExtensions
+  module Array
+    def cut(n)
+      slice(0..-n-1)
+    end
+  end
+end
+
 class CalculatorInvalidInputError < StandardError
   def initialize(msg='Input must be a number or an operator.')
     super
@@ -8,6 +16,8 @@ class CalculatorInvalidInputError < StandardError
 end
 
 class CalculatorApp
+  Array.include CoreExtensions::Array
+
   attr_accessor :operands
   attr_accessor :operators
   attr_accessor :operator_regex
@@ -54,7 +64,7 @@ class CalculatorApp
   end
 
   def pop!
-    @operands, @operators = [@operands.drop(2), @operators.drop(1)]
+    @operands, @operators = [@operands.cut(2), @operators.cut(1)]
   end
 
   def begin
@@ -67,7 +77,7 @@ class CalculatorApp
         add(input)
 
         if finished?
-          output = @calculator.calculate_pair(@operands[0], @operands[1], @operators[0])
+          output = @calculator.calculate_pair(@operands[@operands.count-2], @operands.last, @operators[0])
           pop!
           @operands.unshift output
           puts "= #{output}"
