@@ -33,7 +33,7 @@ class CalculatorApp
   end
 
   def finished?
-    @operands.count != 0 && @operators.count != 0 && @operators.count == @operands.count-1
+    @operands.count != 0 && @operators.count != 0 && @operators.count < @operands.count
   end
 
   def initial
@@ -53,6 +53,10 @@ class CalculatorApp
     true if Float(string) rescue false
   end
 
+  def pop!
+    @operands, @operators = [@operands.drop(2), @operators.drop(1)]
+  end
+
   def begin
     loop do
       begin
@@ -63,9 +67,9 @@ class CalculatorApp
         add(input)
 
         if finished?
-          output = @calculator.calculate(initial, tail, @operators)
-          clear
-          @operands = [output]
+          output = @calculator.calculate_pair(@operands[0], @operands[1], @operators[0])
+          pop!
+          @operands.unshift output
           puts "= #{output}"
         end
 
